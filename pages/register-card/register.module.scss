@@ -9,6 +9,44 @@
  h1{
     margin-left: 1rem;
  }
+ .fingerClass{
+   display: flex;
+   width: 100%;
+   justify-content: space-between;
+   align-items: center;
+   .loader{
+    img{
+        display: block;
+    }
+    span{
+        display: none;
+    }
+    small{
+        display: block;
+    }
+   }
+   .dnone{
+    img{
+        display: none;
+    }
+    span{
+        display: block;
+    }
+    small{
+        display: none;
+    }
+
+   }
+   button{
+    width: 50%;
+    padding: 1rem;
+    background-color: white;
+    border: #646464 solid 1px;
+    &:hover{
+        cursor: pointer;
+    }
+   }
+ }
  .inputgrp{
     display: flex;
     justify-content: space-around;
@@ -19,7 +57,7 @@
    flex-direction: column;
    justify-content: center;
    align-items: center;
-   button{
+    .submitBtn{
     width: 30%;
     margin-top: 2.5rem;
     padding: 1rem;

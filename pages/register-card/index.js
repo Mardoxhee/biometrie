@@ -2,13 +2,83 @@ import styles from './register.module.scss';
 import Image from 'next/image';
 import {useState, useEffect} from 'react';
 import { useForm } from "react-hook-form";
+import FingerImage from '../../public/fingerprint.webp'
+import LoadingIcon from '../../public/Loading_icon.gif'
+import Check from '../../public/check.webp'
 
 
 const Register = () => {
-
-    const { handleSubmit, register, formState: { errors } } = useForm();
     const [isMarried, setIsMarried] = useState(false);
-    const onSubmit = values => alert(values.province);
+    const [isLoadingFingerPrint, setIsLoadingFingerPrint] = useState(false);
+    const [fingerRegistered, setFingerRegistered] = useState(false);
+    const [fingerCodeBase, setFingerCodeBase] = useState('');
+    const { handleSubmit, register, formState: { errors } } = useForm();
+
+
+    const onSubmit =async (values) => {
+        console.log("values", values)
+        const config =  { 
+            'Accept': 'application/json',
+            'Content-Type': 'application/json' 
+        }
+
+          try{
+            const resp = await fetch(
+                `http://localhost:4000/agents`,
+                {
+                    method: "POST",
+                    body: JSON.stringify(values),
+                    headers:config
+               
+                }   
+              );
+              console.log("response: ", resp);
+          } catch (err) {
+            console.log(err.message);
+          }
+    };
+
+    const handleFingerClick = () => {
+    
+    }
+
+
+
+
+
+    const handleFingerFetch = async () => {
+
+        setIsLoadingFingerPrint(true);
+        let myHeaders = new Headers();
+        myHeaders.append("Origin", " https://webapi.secugen.com");
+        myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+    
+        var urlencoded = new URLSearchParams();
+        urlencoded.append("Timeout", "10000");
+        urlencoded.append("Quality", "50");
+        urlencoded.append("licstr", "");
+        urlencoded.append("templateFormat", "ISO");
+        urlencoded.append("imageWSQRate", "0.75");
+    
+        let requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: urlencoded,
+        redirect: 'follow'
+        };
+    
+    const response = await fetch("https://localhost:8443/SGIFPCapture", requestOptions)
+    //   .then(response => response.text())
+    //   .then(result => console.log(result))
+    //   .catch(error => console.log('error', error));
+    let result = await response.json();
+    setFingerCodeBase(result.BMPBase64)
+    if(response.status ===200){
+        setFingerRegistered(true)
+        setIsLoadingFingerPrint(false);
+       
+    }    
+    }
 
     const handleMarried = (e)=> {
        if ( e.target.value === 'M'){
@@ -70,7 +140,7 @@ const Register = () => {
                         </select>
                       <input placeholder='Nom de l epouse / épouse'   
                       {...register("epoux", {
-                            required: "Required",
+                           
                            })}
                            disabled = {isMarried ? false : true} ></input>
                         <input placeholder='Nom du père' 
@@ -113,7 +183,7 @@ const Register = () => {
                           {...register("adresse", {
                             required: "Required",
                            })}></input>
-                        <input placeholder='Numéro de téléphone' 
+                        <input placeholder='Numéro de téléphone' type='number'
                           {...register("telephone", {
                             required: "Required",
                            })}></input>
@@ -121,7 +191,7 @@ const Register = () => {
                 </div>
 
                 <div className={styles.group}>
-                    <h2>Informations techniques</h2>
+                    <h2>Informations techniques et biométriques</h2>
                     <div className={styles.iptContainer}>
                         <input placeholder='Matricule' 
                           {...register("matricule", {
@@ -144,11 +214,28 @@ const Register = () => {
                         {...register("dateaffectation", {
                             required: "Required",
                            })}></input>
+                        <div className={styles.fingerClass}>
+                        <button onClick={handleFingerFetch} className={isLoadingFingerPrint ? styles.loader : styles.dnone}>
+                            <Image 
+                                width={80}
+                                height={50}
+                                alt="Picture of the author"
+                                src={LoadingIcon}
+                            />
+                          <span>Scannez l'empreinte digitale</span> <small>posez le pouce sur le lecteur</small> </button>
+                        <Image 
+                            width={100}
+                            height={100}
+                            alt="Picture of the author"
+                            src={fingerRegistered ? Check: FingerImage}
+                        />
+                        </div>
                     </div>
                 </div>
-            
+
+
             </div>
-            <button type='submit'>Enregistrer l'agent</button>
+            <button type='submit' className={styles.submitBtn}>Enregistrer l'agent</button>
         </form>
 
 
