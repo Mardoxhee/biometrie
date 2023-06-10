@@ -57,16 +57,22 @@ const Register = () => {
                             <option value='F'>Femme</option>
                         </select>
                         <label>Etat civil</label>
-                        <select onChange={handleMarried} 
+                        <select 
                          {...register("etatcivil", {
                             required: "Required",
-                           })}>
+                           })}
+                        onChange={handleMarried} 
+                        >
                         <option value='R'>Choisir...</option>
                             <option value='M'>Marié(e)</option>
                             <option value='C'>Célibataire</option>
                             <option value='D'>Divorcé</option>
                         </select>
-                        {isMarried ?  <input placeholder='Nom de l epouse / épouse'  ></input> : '' }
+                      <input placeholder='Nom de l epouse / épouse'   
+                      {...register("epoux", {
+                            required: "Required",
+                           })}
+                           disabled = {isMarried ? false : true} ></input>
                         <input placeholder='Nom du père' 
                          {...register("nompere", {
                             required: "Required",
