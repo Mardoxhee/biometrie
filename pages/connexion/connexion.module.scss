@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500&display=swap');
+
+
+.mainContainer{
+    font-family: 'DM Sans', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100vw;
+    height: 100vh;
+    padding: 0 !important;
+    margin: 0 !important;
+    position: fixed;
+    margin-left: -10px !important;
+    margin-top: -8px !important;
+    
+    .imgSide{
+       width: 60%;
+       background-image: url('./../../public/man.webp'); 
+       height: 100% !important;
+       background-repeat: no-repeat;
+    }
+    .formSide{
+   
+        display: flex;
+        justify-content: center;
+        width: 40%;
+        .iptContainer{
+ 
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            input{
+                width: 100%;
+                padding: 0.8rem 0rem;
+                margin: 0.5rem 0rem;
+                border: solid 1.5px #040085;
+                text-align: center;
+                &:focus{
+                    outline: #040085 solid 1.5Px ;
+                }
+            }
+            a{
+                text-decoration: none;
+                width: 100%;
+                padding: 0.8rem 0rem;
+                margin: 0.5rem 0rem;
+                border: none;
+                background-color: #040085;
+                color: white;
+                font-size: 1rem;
+                text-align: center;
+            }
+        }
+    }
+}

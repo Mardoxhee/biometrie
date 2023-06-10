@@ -1,0 +1,54 @@
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500&display=swap');
+
+.mainContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem 5rem;
+    font-family: 'DM Sans', sans-serif;
+
+    .textSide{
+        padding: 5rem 0rem;
+        width: 50%;
+        height: 100%;
+        .maintitle{
+            width: 90%;
+            color : #151515;
+            font-size:2rem;
+            font-weight: 700;
+        }
+        p {
+            width: 75%;
+            font-size: 1.1rem;
+            color: #676767;
+        }
+     
+        .connexionbtn{
+            padding: 20px 70px;
+            border: none;
+            background-color: #040085;
+            color: white;
+            font-weight: 500;
+            font-size: 1.1rem;
+            text-decoration: none;
+            margin-top: 10px !important;
+            &:hover{
+                background-color: #2b286b;
+            }
+        }
+        .accountbtn{
+            padding-left: 2rem;
+            color : #151515;
+            text-decoration: none;
+            font-weight: 600;
+        }
+ .btnContainer{
+    margin-top: 50px;
+ }
+    }
+    .imgSide{
+        width: 50%;
+    }
+}
+
